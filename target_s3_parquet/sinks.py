@@ -62,21 +62,21 @@ class S3ParquetSink(BatchSink):
 
         df["_sdc_started_at"] = STARTED_AT.timestamp()
 
-        current_schema = generate_current_target_schema(self._get_glue_schema())
-        tap_schema = generate_tap_schema(
-            self.schema["properties"], only_string=self.config.get("stringify_schema")
-        )
+        # current_schema = generate_current_target_schema(self._get_glue_schema())
+        # tap_schema = generate_tap_schema(
+        #     self.schema["properties"], only_string=self.config.get("stringify_schema")
+        # )
 
-        dtype = {**current_schema, **tap_schema}
+        # dtype = {**current_schema, **tap_schema}
 
-        if self.config.get("stringify_schema"):
-            attributes_names = get_specific_type_attributes(
-                self.schema["properties"], "object"
-            )
-            df_transformed = apply_json_dump_to_df(df, attributes_names)
-            df = stringify_df(df_transformed)
+        # if self.config.get("stringify_schema"):
+        #     attributes_names = get_specific_type_attributes(
+        #         self.schema["properties"], "object"
+        #     )
+        #     df_transformed = apply_json_dump_to_df(df, attributes_names)
+        #     df = stringify_df(df_transformed)
 
-        self.logger.debug(f"DType Definition: {dtype}")
+        # self.logger.debug(f"DType Definition: {dtype}")
 
         full_path = f"{self.config.get('s3_path')}/{self.stream_name}"
 
@@ -91,7 +91,7 @@ class S3ParquetSink(BatchSink):
             # mode="append",
             # partition_cols=["_sdc_started_at"],
             # schema_evolution=True,
-            dtype=dtype,
+            # dtype=dtype,
         )
 
         self.logger.info(f"Uploaded {len(context['records'])}")
