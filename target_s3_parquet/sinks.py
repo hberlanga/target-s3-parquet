@@ -78,7 +78,7 @@ class S3ParquetSink(BatchSink):
 
         self.logger.debug(f"DType Definition: {dtype}")
 
-        full_path = f"{self.config.get('s3_path')}/{self.config.get('athena_database')}/{self.stream_name}"
+        full_path = f"{self.config.get('s3_path')}/{self.stream_name}"
 
         wr.s3.to_parquet(
             df=df,
