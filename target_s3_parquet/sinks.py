@@ -35,7 +35,7 @@ class S3ParquetSink(BatchSink):
     ) -> None:
         super().__init__(target, stream_name, schema, key_properties)
 
-        self._glue_schema = self._get_glue_schema()
+        # self._glue_schema = self._get_glue_schema()
 
     def _get_glue_schema(self):
 
@@ -86,11 +86,11 @@ class S3ParquetSink(BatchSink):
             compression="gzip",
             dataset=True,
             path=full_path,
-            database=self.config.get("athena_database"),
-            table=self.stream_name,
-            mode="append",
-            partition_cols=["_sdc_started_at"],
-            schema_evolution=True,
+            # database=self.config.get("athena_database"),
+            # table=self.stream_name,
+            # mode="append",
+            # partition_cols=["_sdc_started_at"],
+            # schema_evolution=True,
             dtype=dtype,
         )
 
