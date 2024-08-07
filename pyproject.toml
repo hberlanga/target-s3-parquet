@@ -10,11 +10,11 @@ keywords = [
 license = "Apache 2.0"
 
 [tool.poetry.dependencies]
-python = "<3.11,>=3.8"
+python = "<3.11,>=3.10"
 requests = "^2.25.1"
 singer-sdk = "^0.34.1"
-awswrangler = "2.19.0"
-pandas = "1.5.1"
+awswrangler = "3.4.0"
+pandas = "2.2.2"
 
 [tool.poetry.dev-dependencies]
 pytest = "^6.2.5"
