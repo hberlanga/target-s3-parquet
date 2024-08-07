@@ -62,6 +62,8 @@ class S3ParquetSink(BatchSink):
 
         df["_sdc_started_at"] = STARTED_AT.timestamp()
 
+        print(f'Ejemplo de fecha => {df['FECHA_MOD_CAPITALIZACION'][:1][0]}')
+
         current_schema = generate_current_target_schema(self._get_glue_schema())
         tap_schema = generate_tap_schema(
             self.schema["properties"], only_string=self.config.get("stringify_schema")
