@@ -63,13 +63,15 @@ class S3ParquetSink(BatchSink):
 
         df["_sdc_started_at"] = STARTED_AT.timestamp()
 
-        df["FECHA_MOD_CAPITALIZACION"] = pd.to_datetime(df["FECHA_MOD_CAPITALIZACION"], utc=True)
-        self.logger.info(f'Completado')
-
+        # df["FECHA_MOD_CAPITALIZACION"] = pd.to_datetime(df["FECHA_MOD_CAPITALIZACION"], utc=True)
+        
         current_schema = generate_current_target_schema(self._get_glue_schema())
         tap_schema = generate_tap_schema(
             self.schema["properties"], only_string=self.config.get("stringify_schema")
         )
+
+        self.logger.info(f"Current schema {current_schema}")
+        self.logger.info(f"Tap schema {tap_schema}")
 
         dtype = {**current_schema, **tap_schema}
 
