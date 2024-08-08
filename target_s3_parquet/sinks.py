@@ -3,6 +3,7 @@
 
 from typing import Dict, List, Optional
 import awswrangler as wr
+import pandas as pd
 from pandas import DataFrame
 from singer_sdk import Target
 from singer_sdk.sinks import BatchSink
@@ -62,7 +63,8 @@ class S3ParquetSink(BatchSink):
 
         df["_sdc_started_at"] = STARTED_AT.timestamp()
 
-        self.logger.info(f'Ejemplo de fecha => {df["FECHA_MOD_CAPITALIZACION"].dtype}')
+        df["FECHA_MOD_CAPITALIZACION"] = pd.to_datetime(df["FECHA_MOD_CAPITALIZACION"])
+        self.logger.info(f'Completado')
 
         current_schema = generate_current_target_schema(self._get_glue_schema())
         tap_schema = generate_tap_schema(
