@@ -35,7 +35,7 @@ class S3ParquetSink(BatchSink):
         key_properties: Optional[List[str]],
     ) -> None:
         super().__init__(target, stream_name, schema, key_properties)
-        
+        self.logger.info(schema)
         self._glue_schema = self._get_glue_schema()
 
     def _get_glue_schema(self):
@@ -62,8 +62,6 @@ class S3ParquetSink(BatchSink):
         df = DataFrame(context["records"])
 
         df["_sdc_started_at"] = STARTED_AT.timestamp()
-
-        self.logger.info("Entra en el batch")
 
         current_schema = generate_current_target_schema(self._get_glue_schema())
         tap_schema = generate_tap_schema(
