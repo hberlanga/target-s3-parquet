@@ -70,6 +70,7 @@ class S3ParquetSink(BatchSink):
 
         for k,v in tap_schema.items():
             if v == 'timestamp':
+                df[k].apply(lambda x: x if 1975 <= x.year < 2262 else None)
                 df[k] = pd.to_datetime(df[k], utc=True)
 
         dtype = {**current_schema, **tap_schema}
