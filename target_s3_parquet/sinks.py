@@ -35,7 +35,7 @@ class S3ParquetSink(BatchSink):
         key_properties: Optional[List[str]],
     ) -> None:
         super().__init__(target, stream_name, schema, key_properties)
-
+        self.logger.info("Despues de init")
         self._glue_schema = self._get_glue_schema()
 
     def _get_glue_schema(self):
