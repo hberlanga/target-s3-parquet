@@ -34,6 +34,7 @@ class S3ParquetSink(BatchSink):
         schema: Dict,
         key_properties: Optional[List[str]],
     ) -> None:
+        self.logger.info("Entra")
         super().__init__(target, stream_name, schema, key_properties)
 
         # self._glue_schema = self._get_glue_schema()
