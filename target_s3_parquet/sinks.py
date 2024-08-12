@@ -35,7 +35,9 @@ class S3ParquetSink(BatchSink):
         key_properties: Optional[List[str]],
     ) -> None:
         super().__init__(target, stream_name, schema, key_properties)
-        self.logger.info(schema)
+        for k,_ in schema['properties'].items():
+            if 'multipleOf' in schema['properties'][k].keys():
+                schema['properties'][k].pop('multipleOf')
         self._glue_schema = self._get_glue_schema()
 
     def _get_glue_schema(self):
